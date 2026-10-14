@@ -9,6 +9,12 @@
 
 ---
 
+<p align="center">
+  <img src="assets/logo.svg" width="180" />
+</p>
+
+---
+
 # ZeroDay Homelab – Active Directory & Security Baseline
 
 A fully configured Windows Active Directory environment deployed under the **zeroday.local** domain.  
