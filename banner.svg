@@ -1,0 +1,9 @@
+<svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#0a0a0a"/>
+  <text x="50%" y="50%" fill="#00aaff" font-size="42" font-family="Segoe UI, sans-serif" text-anchor="middle" dominant-baseline="middle">
+    ZeroDay Homelab
+  </text>
+  <text x="50%" y="78%" fill="#ffffff" font-size="18" font-family="Segoe UI, sans-serif" text-anchor="middle">
+    Active Directory • Security Baseline • GPO Architecture
+  </text>
+</svg>
