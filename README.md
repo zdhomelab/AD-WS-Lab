@@ -59,16 +59,15 @@ The domain environment was organized using dedicated organizational units (OUs) 
 | GG-Lab-Admins | Admin ZD |
 
 ### Group Structure
-zeroday.local
-└── Lab-Groups
-├── GG-IT-Admins
-├── GG-Helpdesk
-├── GG-VPN-Users
-├── GG-Standard-Users
-├── GG-Workstation-Admins
-├── GG-GPO-Workstations
-└── GG-Lab-Admins
-
+- zeroday.local
+  - **Lab-Groups**
+   - GG-IT-Admins
+   - GG-Helpdesk
+   - GG-VPN-Users
+   - GG-Standard-Users
+   - GG-Workstation-Admins
+   - GG-GPO-Workstations
+   - GG-Lab-Admins
 ---
 
 ## 4. Group Policy Security Baseline
