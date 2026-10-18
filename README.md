@@ -1,273 +1,239 @@
-<a href="https://www.linkedin.com/in/mohammad-h-masir">
-  <img src="https://img.shields.io/badge/LinkedIn-Mohammad%20H.%20Masir-lightblue" />
-</a>
+# Active Directory & Windows Security Lab
+Enterprise-Grade Windows Domain Deployment & Security Hardening  
+Author: ZD Homelab  
 
 ---
 
-# ZeroDay Homelab – Active Directory & Security Baseline
+## Overview
+This project demonstrates the deployment and security hardening of a Windows domain environment inside the Zeroday homelab. The lab replicates a small enterprise environment using:
 
-A fully configured Windows Active Directory environment deployed under the **zeroday.local** domain.  
-This project demonstrates domain design, user/group management, Group Policy security baselines, auditing, and validation.
+- Windows Server 2025 (Domain Controller)
+- Windows 11 Pro (Domain-joined workstation)
+- Cisco networking equipment
+- Proxmox VE virtualization
+- Pi-hole DNS filtering
+
+The goal is to build a functional, secure, and fully monitored Windows domain while implementing foundational identity, authentication, and workstation security controls.
 
 ---
 
-## 1. Active Directory Structure
+## Objectives
+- Deploy Windows Server 2025 as an enterprise-grade Active Directory Domain Controller
+- Configure AD DS with secure DNS integration using Pi-hole
+- Build a structured OU hierarchy for users, computers, and security groups
+- Implement a domain-wide Group Policy security baseline
+- Join Windows 11 workstation to the domain and validate trust
+- Enforce password, lockout, and audit policies aligned with security standards
+- Enable Advanced Audit Policy for authentication and policy change monitoring
+- Validate GPO application using RSoP and gpresult
+- Generate and analyze failed authentication events (4625, 4776)
 
-The domain environment was organized using dedicated organizational units (OUs) to separate users, computers, and security groups.
+---
+
+## Key Outcomes
+- Fully functional Windows Server 2025 domain controller with AD DS, Kerberos, and secure DNS
+- Domain-wide security baseline GPO enforcing password, lockout, audit, and workstation hardening
+- Advanced Audit Policy enabled and validated (4624, 4625, 4720, 4732, 4738, 4719)
+- Hardened Windows 11 workstation (Firewall, Defender, SmartScreen, least privilege)
+- Pi-hole DNS filtering integrated with conditional forwarding to AD DNS
+- Troubleshooting documented for DNS, GPO, replication, audit gaps, and workstation permissions
+- Verified domain trust, GPO inheritance, and workstation policy enforcement
+
+---
+
+## Lab Architecture
+
+### Proxmox VE Host (pve01)
+pve01 (Proxmox VE)
+│
+├── SRV-DC01 (Windows Server 2025)
+│   ├── Active Directory Domain Services
+│   ├── DNS (zeroday.local)
+│   └── Group Policy Security Baseline
+│
+└── WC01 (Windows 11 Pro)
+└── Domain-joined workstation
+
+### Network LayoutCisco Router
+│
+└── Cisco Switch
+├── Proxmox VE Host
+└── Pi-hole DNS Server
+├── DNS Filtering
+└── Conditional Forwarding → SRV-DC01
+
+---
+
+## Active Directory Structure
 
 ### Organizational Units
-- Lab-Users  
-- Lab-Computers  
-- Lab-Groups  
-
-### OU Layout
-- zeroday.local  
-  - Lab-Users  
-    - Standard  
-    - Admin  
-  - Lab-Computers  
-    - Workstations  
-    - Servers  
-  - Lab-Groups  
-    - Security Groups  
-    - GPO Targeting Groups
----
-
-## 2. User Accounts
-
-| Display Name | Username (sAMAccountName) | Role | OU Location | Notes |
-| --- | --- | --- | --- | --- |
-| John Doe | john.doe | Standard User | `zeroday.local/Lab-Users/Standard` | General workstation user |
-| Sarah Miller | sarah.miller | Standard User | `zeroday.local/Lab-Users/Standard` | Used for GPO testing |
-| Admin ZD | adm.zd | Domain Admin | `zeroday.local/Lab-Users/Admin` | Primary administrative account |
-| Lab Technician | lab.tech | Power User | `zeroday.local/Lab-Users/Admin` | Elevated permissions for lab operations |
 
 ---
 
-## 3. Security Groups
+## Active Directory Structure
 
-### Group Memberships
+### Organizational Units
+zeroday.local
+│
+├── Lab-Users
+├── Lab-Computers
+└── Lab-Groups
 
-| Group | Members |
-|-------|---------|
-| GG-IT-Admins | Admin ZD |
-| GG-Helpdesk | Lab Technician |
-| GG-VPN-Users | John Doe, Sarah Miller |
-| GG-Standard-Users | John Doe, Sarah Miller |
-| GG-Workstation-Admins | Admin ZD |
-| GG-GPO-Workstations | John Doe, Sarah Miller |
-| GG-Lab-Admins | Admin ZD |
+### User Accounts
+| Display Name    | Username  | Role           | OU        |
+|-----------------|-----------|----------------|-----------|
+| Mike Dt         | mike.dt   | Standard User  | Lab-Users |
+| Bob Jeen        | bob.jeen  | Standard User  | Lab-Users |
+| Admin ZD        | adm.zd    | Domain Admin   | Lab-Users |
+| Lab Technician  | lab.tech  | Power User     | Lab-Users |
+| Ali Jan         | ali.jan   | Standard User  | Lab-Users |
 
-### Group Structure
-- zeroday.local
-  - **Lab-Groups**
-   - GG-IT-Admins
-   - GG-Helpdesk
-   - GG-VPN-Users
-   - GG-Standard-Users
-   - GG-Workstation-Admins
-   - GG-GPO-Workstations
-   - GG-Lab-Admins
+### Security Groups
+| Group                 | Members                 |
+|-----------------------|-------------------------|
+| GG-IT-Admin           | Admin ZD                |
+| GG-Helpdesk           | Lab Technician          |
+| GG-Standard-Users     | Mike Dt, Bob Jeen       |
+| GG-Workstation-Admins | Admin ZD                |
+| GG-GPO-Workstations   | Mike Dt, Bob Jeen       |
+| GG-Lab-Admin          | Admin ZD                |
+
 ---
 
-## 4. Group Policy Security Baseline
-
-A domain-level Group Policy Object (GPO) named **GPO – Security Baseline** was created to establish baseline security controls across the Windows environment.
+## Group Policy Security Baseline
 
 ### Password Policy
-- Password history: 5 passwords remembered  
-- Maximum password age: 90 days  
-- Minimum password age: 1 day  
-- Minimum password length: 12 characters  
-- Password complexity: Enabled  
-- Reversible password encryption: Disabled  
+- Minimum length: 14 characters
+- Password history: 10 remembered
+- Complexity: Disabled
+- Expiry: None
+- Reversible encryption: Disabled
 
 ### Account Lockout Policy
-- Account lockout threshold: 5 invalid attempts  
-- Account lockout duration: 15 minutes  
-- Reset account lockout counter after: 15 minutes  
+- Threshold: 10 invalid attempts
+- Duration: 30 minutes
+- Reset counter: 30 minutes
 
 ### Advanced Audit Policy
-Auditing was configured for:
-- Account Logon  
-- Account Management  
-- Logon/Logoff  
-- Policy Change  
-- Authentication Activity  
-- Security Group Management  
-- User Account Management  
+Enabled for:
+- Account Logon
+- Account Management
+- Logon/Logoff
+- Policy Change
+- Security Group Management
+- User Account Management
 
 ---
 
-## 5. Validation & Testing
+## Validation & Testing
 
-### Password & Lockout Validation
-- Verified password complexity and minimum length  
-- Confirmed password history enforcement  
-- Tested lockout after 5 failed attempts  
-- Verified lockout duration and reset timer  
+### Password & Lockout Policy
+- Verified 14-character minimum
+- Confirmed password history enforcement
+- Tested lockout at 10 failed attempts
+- Verified 30-minute lockout duration
 
 ### Audit Policy Validation
-Event Viewer logs confirmed:
-- 4624 – Successful logon  
-- 4625 – Failed logon  
-- 4720 – User account created  
-- 4732 – Added to security group  
-- 4738 – User account changed  
-- 4719 – Audit policy changed  
+Events confirmed on SRV-DC01 and WC01:
+- 4624 – Successful logon
+- 4625 – Failed logon
+- 4720 – User account created
+- 4732 – Added to security group
+- 4738 – User account changed
+- 4719 – Audit policy changed
 
-### Workstation Validation (CLIENT01)
-- `gpresult /r` confirmed GPO application  
-- Firewall enabled  
-- Defender real-time protection active  
-- SmartScreen enabled  
-- Standard users not in local Administrators  
-- Admin ZD present in local Administrators  
+### Failed Logon Test
+- Wrong password attempt for bob.jeen
+- Event 4625 logged (NTLM, logon type 3)
+- Substatus 0xC000006A → valid account, bad password
+- Matching 4776 credential validation failure
 
-### Domain Controller Validation
-- DC audit policies applied  
-- Secure DNS updates enabled  
-- Kerberos authentication functioning correctly  
-
----
-
-## 6. Visual Diagram – Screenshot Placement
-GPO - Security Baseline
-───────────────────────
-• GPMC: GPO listed
-• Password Policy
-• Lockout Policy
-• Audit Policy
-
-Policy Application
-───────────────────
-• gpresult /r (CLIENT01)
-• RSOP
-
-Active Directory
-───────────────────
-• Lab-Users OU
-• Lab-Groups OU
-• Member Of tabs
-
-Event Viewer
-─────────────
-• 4624, 4625
-• 4720, 4732
-• 4719
-
-Workstation Validation
-───────────────────────
-• Local Administrators group
-• Defender / Firewall
-• SmartScreen
-
-Domain Controller Checks
-─────────────────────────
-• DC audit policy
-• DNS secure updates
-• Kerberos logs
+### Workstation Hardening Validation
+- Firewall enabled
+- Defender real-time protection active
+- SmartScreen enabled
+- Standard users have no local admin rights
+- Admin ZD has admin rights via GG-Workstation-Admins
 
 ---
 
-## 7. Screenshots Checklist
-
-| Category | Screenshot Description | Purpose |
-|----------|------------------------|---------|
-| GPO Baseline | GPO listed in GPMC | Confirms GPO exists |
-| | GPO linked to zeroday.local | Confirms correct linkage |
-| | Password Policy | Shows password rules |
-| | Lockout Policy | Shows lockout rules |
-| | Audit Policy | Shows audit configuration |
-| gpresult /r | RSOP output | Confirms GPO applied |
-| Event Viewer | 4624, 4625 | Logon auditing |
-| | 4720, 4732 | Account/group management |
-| | 4719 | Policy change auditing |
-| ADUC | Lab-Users OU | Shows user placement |
-| | Lab-Groups OU | Shows group structure |
-| | Member Of tabs | Confirms group membership |
-| Workstation | Local Administrators | Confirms admin rights |
-| | Defender/Firewall | Confirms hardening |
-| Domain Controller | DNS secure updates | Confirms DNS security |
-| | Kerberos logs | Confirms authentication |
+## Challenges & Troubleshooting
+- DNS misconfiguration prevented domain join → fixed by pointing WC01 to SRV-DC01
+- GPO not applying → resolved with gpupdate /force and correct OU linking
+- Missing audit events → fixed by enabling Advanced Audit Policy
+- Standard users had unintended admin rights → corrected via security groups
+- Pi-hole required conditional forwarding for AD DNS functionality
 
 ---
 
-## 9. Challenges & Troubleshooting
-
-### Active Directory Configuration
-- Initial domain join attempts failed due to incorrect DNS pointing; resolved by directing CLIENT01 to the domain controller’s IP.
-- User replication delays required forcing AD replication to ensure new users and groups appeared correctly.
-
-### Group Policy Application
-- GPO settings did not apply on first attempt; resolved by running `gpupdate /force` and verifying OU linkage.
-- Password and lockout policies required domain-level enforcement; workstation-level GPOs were ignored until corrected.
-
-### Audit Policy Logging
-- Some audit events were missing due to default audit settings; enabling Advanced Audit Policy resolved the issue.
-- Event Viewer filtering needed refinement to properly capture 4624, 4625, 4720, 4732, and 4719 events.
-
-### Workstation Permissions
-- Standard users initially had unintended local admin rights due to default VirtualBox configuration; corrected by enforcing GG-Workstation-Admins.
-- Admin ZD required manual addition to local Administrators on CLIENT01 before GPO enforcement was finalized.
-
-### Networking & Time Sync
-- Kerberos authentication failed due to clock drift; resolved by syncing time with the Raspberry Pi NTP server.
-- Pi-hole DNS required conditional forwarding to the domain controller for proper AD functionality.
-
----
-
-## 10. Lessons Learned
+## Lessons Learned
 
 ### Active Directory Design
-- Proper OU structure is essential for clean GPO targeting and long-term scalability.
-- Separating standard users, admins, and service accounts prevents privilege creep.
+- OU structure is critical for clean GPO targeting
+- Separating standard users, admin users, and service accounts prevents privilege creep
 
 ### Group Policy Management
-- Domain-level policies override local settings; understanding precedence is critical.
-- Advanced Audit Policy provides far more granular logging than legacy audit settings.
+- Domain-level policies override local settings
+- Advanced Audit Policy provides more detailed and useful logging than legacy audit settings
 
 ### Security Best Practices
-- Least privilege must be enforced through security groups, not local configuration.
-- Password and lockout policies significantly strengthen domain security with minimal user impact.
+- Least privilege should be enforced through security groups, not local configuration
+- Password and lockout policies significantly strengthen domain security with minimal user impact
 
 ### Troubleshooting Workflow
-- `gpresult /r` and Event Viewer are indispensable tools for diagnosing GPO issues.
-- DNS and time synchronization are foundational — AD breaks quickly without them.
+- gpresult /r and Event Viewer are essential tools for diagnosing GPO issues
+- DNS and time synchronization are foundational; Active Directory breaks quickly without them
 
 ### Documentation & Validation
-- Screenshots and structured validation steps make the environment reproducible and portfolio-ready.
-- Visual diagrams help map how each component interacts within the domain.
+- Screenshots and structured validation steps make the environment reproducible and portfolio-ready
 
 ---
 
-## 11. Technologies Used
+## Future Enhancements
+
+### Local Administrator Password Solution (LAPS)
+Deploying Windows LAPS ensures unique, automatically rotated local admin passwords across all domain-joined systems, reducing lateral movement risk.
+
+### Sysmon + Wazuh Integration
+Adding Sysmon for detailed endpoint telemetry and forwarding logs to Wazuh SIEM enhances threat detection, process monitoring, and incident investigation.
+
+### Network Segmentation
+Implementing VLANs on the Cisco switch isolates domain controllers, workstations, and management interfaces, reducing broadcast traffic and limiting lateral movement opportunities.
+
+### Kerberos-Only Authentication
+Disabling NTLM and enforcing Kerberos-only authentication strengthens identity security and prevents NTLM relay attacks. This requires validating all services for Kerberos compatibility.
+
+### BitLocker + TPM Enforcement
+Encrypting workstation drives with BitLocker protects data at rest and mitigates physical access attacks.
+
+### AppLocker or WDAC
+Application control policies restrict unauthorized software execution, reducing malware risk and enforcing a trusted application baseline.
+
+---
+
+## Technologies Used
 
 ### Operating Systems & Directory Services
-- **Windows Server 2025** (Domain Controller)
-- **Windows 11** (CLIENT01 workstation)
-- **Active Directory Domain Services (AD DS)**
+- Windows Server 2025 (Domain Controller)
+- Windows 11 (WC01 workstation)
+- Active Directory Domain Services (AD DS)
 
 ### Group Policy & Security
-- **Group Policy Management Console (GPMC)**
-- **Advanced Audit Policy**
-- **Windows Defender**
-- **Windows Firewall**
-- **SmartScreen**
+- Group Policy Management Console (GPMC)
+- Advanced Audit Policy
+- Windows Defender
+- Windows Firewall
+- SmartScreen
 
 ### Networking & Infrastructure
-- **Pi-hole DNS**
-- **Raspberry Pi NTP Server**
-- **Cisco Networking Equipment**
-- **VirtualBox Virtualization**
+- Pi-hole DNS
+- Cisco Networking Equipment
+- Proxmox VE Virtualization
 
 ### Tools & Utilities
-- **Event Viewer**
-- **gpresult /r**
-- **gpupdate /force**
-- **Active Directory Users and Computers (ADUC)**
-- **PowerShell**
----
-
-
+- Event Viewer
+- gpresult /r
+- gpupdate /force
+- Active Directory Users and Computers (ADUC)
+- PowerShell
 
