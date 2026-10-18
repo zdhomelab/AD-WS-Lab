@@ -100,6 +100,8 @@ zeroday.local
 
 ---
 
+<img width="1546" height="1152" alt="Server Initial Configuration" src="https://github.com/user-attachments/assets/f13c12bc-a98f-4810-a026-5daea43d3f71" />
+
 ## Group Policy Security Baseline
 
 ### Password Policy
