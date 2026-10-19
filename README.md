@@ -218,13 +218,17 @@ This confirms failed authentication attempts are audited and traceable to a sour
 
 ### Event Viewer Validation
 
-| Event 4624: Successful logon | Event 4625: Failed logon |
-|:---:|:---:|
-| <img src="github-lab-readme/screenshots/01-event-4624.png" alt="Event 4624"> | <img src="github-lab-readme/screenshots/02-event-4625.png" alt="Event 4625"> |
+**Event 4624: Successful logon**
+
+<img src="github-lab-readme/screenshots/01-event-4624.png" alt="Event 4624"> 
+
+**Event 4625: Failed logon**
+
+<img src="github-lab-readme/screenshots/02-event-4625.png" alt="Event 4625"> 
 
 **Event 4720: User account created**
 
-| <img src="github-lab-readme/screenshots/03-event-4720.png" alt="Event 4720" width="75%"> | <img src="github-lab-redme/screenshots/03-event-4720.png" alt="Event 4720" width="75%"> |
+<img src="github-lab-readme/screenshots/03-event-4720.png" alt="Event 4720" width="75%"> 
 
 ### Domain Controller Build
 
