@@ -220,69 +220,69 @@ This confirms failed authentication attempts are audited and traceable to a sour
 
 | Event 4624: Successful logon | Event 4625: Failed logon |
 |:---:|:---:|
-| <img src="screenshots/01-event-4624.png" alt="Event 4624"> | <img src="screenshots/02-event-4625.png" alt="Event 4625"> |
+| <img src="github-lab-readme/screenshots/01-event-4624.png" alt="Event 4624"> | <img src="github-lab-readme/screenshots/02-event-4625.png" alt="Event 4625"> |
 
 **Event 4720: User account created**
 
-<img src="screenshots/03-event-4720.png" alt="Event 4720" width="75%">
+| <img src="github-lab-readme/screenshots/03-event-4720.png" alt="Event 4720" width="75%"> | <img src="github-lab-redme/screenshots/03-event-4720.png" alt="Event 4720" width="75%"> |
 
 ### Domain Controller Build
 
 **Server Manager: SRV-DC01 local server properties**
 
-<img src="screenshots/04-server-manager.png" alt="Server Manager" width="75%">
+<img src="github-lab-readme/screenshots/04-server-manager.png" alt="Server Manager" width="75%">
 
 **IP configuration (`ipconfig`)**
 
-<img src="screenshots/05-ip-configuration.png" alt="IP configuration" width="75%">
+<img src="github-lab-readme/screenshots/05-ip-configuration.png" alt="IP configuration" width="75%">
 
 **AD DS and DNS role installation**
 
-<img src="screenshots/06-adds-installation.png" alt="AD DS installation" width="75%">
+<img src="github-lab-readme/screenshots/06-adds-installation.png" alt="AD DS installation" width="75%">
 
 **AD DS Configuration Wizard: prerequisites passed**
 
-<img src="screenshots/07-ad-prerequisites.png" alt="AD prerequisites" width="75%">
+<img src="github-lab-readme/screenshots/07-ad-prerequisites.png" alt="AD prerequisites" width="75%">
 
 **Domain verification: `zeroday.local` with SRV-DC01 as infrastructure master**
 
-<img src="screenshots/08-domain-verification.png" alt="Domain verification" width="75%">
+<img src="github-lab-readme/screenshots/08-domain-verification.png" alt="Domain verification" width="75%">
 
 **DNS resolution: `nslookup` resolves `srv-dc01.zeroday.local` to `192.168.10.10`**
 
-<img src="screenshots/09-dns-resolution.png" alt="DNS resolution" width="75%">
+<img src="github-lab-readme/screenshots/09-dns-resolution.png" alt="DNS resolution" width="75%">
 
 ### Active Directory Structure
 
 **Organizational units: Lab-Users, Lab-Computers, Lab-Groups**
 
-<img src="screenshots/10-organizational-units.png" alt="Organizational units" width="75%">
+<img src="github-lab-readme/screenshots/10-organizational-units.png" alt="Organizational units" width="75%">
 
 **Lab-Users OU with the five test accounts**
 
-<img src="screenshots/11-test-users.png" alt="Test users" width="75%">
+<img src="github-lab-readme/screenshots/11-test-users.png" alt="Test users" width="75%">
 
 **Lab-Groups OU with the six security groups**
 
-<img src="screenshots/12-security-groups.png" alt="Security groups" width="75%">
+<img src="github-lab-readme/screenshots/12-security-groups.png" alt="Security groups" width="75%">
 
 ### Security Configuration
 
 **GPO-Security Baseline linked at the domain level**
 
-<img src="screenshots/13-gpo-security-baseline.png" alt="GPO Security Baseline" width="75%">
+<img src="github-lab-readme/screenshots/13-gpo-security-baseline.png" alt="GPO Security Baseline" width="75%">
 
 | Password policy | Account lockout policy |
 |:---:|:---:|
-| <img src="screenshots/14-password-policy.png" alt="Password policy"> | <img src="screenshots/15-lockout-policy.png" alt="Lockout policy"> |
+| <img src="github-lab-readme/screenshots/14-password-policy.png" alt="Password policy"> | <img src="screenshots/15-lockout-policy.png" alt="Lockout policy"> |
 
 **Domain controller GPO verification (SRV-DC01):** Default Domain Controllers Policy, Default Domain Policy, and GPO-Security Baseline applied successfully.
 
-<img src="screenshots/16-dc-gpo-verification.png" alt="DC GPO verification" width="75%">
+<img src="github-lab-readme/screenshots/16-dc-gpo-verification.png" alt="DC GPO verification" width="75%">
 
 **Workstation GPO verification (WC01):** Default Domain Policy and GPO-Security Baseline applied from SRV-DC01.
 
-<img src="screenshots/17-wc01-gpo-verification.png" alt="WC01 GPO verification" width="75%">
+<img src="github-lab-readme/screenshots/17-wc01-gpo-verification.png" alt="WC01 GPO verification" width="75%">
 
 ### DNS & Pi-hole Integration
 
@@ -294,27 +294,27 @@ Pi-hole forwards queries for `zeroday.local` to the domain controller using **Co
 | Server IP | `192.168.10.10` (Domain Controller) |
 | Domain | `zeroday.local` |
 
-<img src="screenshots/18-pihole-conditional-forwarding.png" alt="Pi-hole conditional forwarding" width="75%">
+<img src="github-lab-readme/screenshots/18-pihole-conditional-forwarding.png" alt="Pi-hole conditional forwarding" width="75%">
 
 **DNS Manager:** all required AD SRV records present (LDAP, Kerberos, Global Catalog, DC locator) with no errors or stale entries.
 
-<img src="screenshots/19-dns-manager.png" alt="DNS Manager" width="75%">
+<img src="github-lab-readme/screenshots/19-dns-manager.png" alt="DNS Manager" width="75%">
 
 **`dcdiag /test:dns`:** DNS, ForestDnsZones, DomainDnsZones, Schema, Configuration, and enterprise DNS tests all passed.
 
-<img src="screenshots/20-dcdiag-dns.png" alt="dcdiag DNS test" width="75%">
+<img src="github-lab-readme/screenshots/20-dcdiag-dns.png" alt="dcdiag DNS test" width="75%">
 
 ### Replication Health
 
 Replication tests were run even in a single-DC environment to validate the AD replication engine across Schema, Configuration, Domain, ForestDnsZones, and DomainDnsZones partitions. `repadmin /replsummary` reported no errors.
 
-<img src="screenshots/21-replication-health.png" alt="Replication health" width="75%">
+<img src="github-lab-readme/screenshots/21-replication-health.png" alt="Replication health" width="75%">
 
 ### Domain-Joined Client
 
 **WC01 joined to `zeroday.local` (Windows 11 Pro, System > About)**
 
-<img src="screenshots/22-domain-joined-client.png" alt="Domain-joined client" width="75%">
+<img src="github-lab-readme/screenshots/22-domain-joined-client.png" alt="Domain-joined client" width="75%">
 
 ---
 
