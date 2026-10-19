@@ -1,4 +1,4 @@
-# 🛡️ Active Directory & Windows Security Lab
+# Active Directory & Windows Security Lab
 
 ![Windows Server](https://img.shields.io/badge/Windows%20Server-2025-0078D4?logo=windows&logoColor=white)
 ![Windows 11](https://img.shields.io/badge/Windows-11%20Pro-0078D4?logo=windows11&logoColor=white)
@@ -12,7 +12,7 @@ The goal was to build a functional Windows domain while implementing foundationa
 
 ---
 
-## 📑 Table of Contents
+##  Table of Contents
 
 - [Objectives](#-objectives)
 - [Key Outcomes](#-key-outcomes)
@@ -29,7 +29,7 @@ The goal was to build a functional Windows domain while implementing foundationa
 
 ---
 
-## 🎯 Objectives
+##  Objectives
 
 - Deploy **Windows Server 2025** as an enterprise-grade **Active Directory Domain Controller**
 - Configure **AD DS** and integrate DNS with **Pi-hole** for upstream filtering and name resolution
@@ -43,7 +43,7 @@ The goal was to build a functional Windows domain while implementing foundationa
 
 ---
 
-## ✅ Key Outcomes
+##  Key Outcomes
 
 - Built a Windows Server 2025 domain controller with AD DS, Kerberos authentication, and secure DNS integration
 - Implemented a domain-wide security baseline GPO enforcing password, lockout, audit, and workstation hardening policies
@@ -55,7 +55,7 @@ The goal was to build a functional Windows domain while implementing foundationa
 
 ---
 
-## 🧩 System Components
+##  System Components
 
 ### Table 1. Lab components
 
@@ -80,7 +80,7 @@ The goal was to build a functional Windows domain while implementing foundationa
 
 ---
 
-## 🗺️ Architecture
+##  Architecture
 
 ```text
 Cisco Router
@@ -104,7 +104,7 @@ Cisco Router
 
 ---
 
-## 🏢 Active Directory Structure
+##  Active Directory Structure
 
 The domain is organized into dedicated Organizational Units (OUs) to separate users, computers, and security groups, giving clear administrative boundaries and simpler Group Policy management.
 
@@ -139,7 +139,7 @@ The domain is organized into dedicated Organizational Units (OUs) to separate us
 
 ---
 
-## 🔐 Group Policy Security Baseline
+##  Group Policy Security Baseline
 
 A domain-level GPO named **GPO – Security Baseline** enforces foundational security controls across the `zeroday.local` environment.
 
@@ -179,7 +179,7 @@ A domain-level GPO named **GPO – Security Baseline** enforces foundational sec
 
 ---
 
-## 🧪 Validation & Testing
+##  Validation & Testing
 
 ### Password & Account Policy
 - Verified the **14-character** minimum length during user password changes
@@ -318,7 +318,7 @@ Replication tests were run even in a single-DC environment to validate the AD re
 
 ---
 
-## 🔧 Challenges & Troubleshooting
+##  Challenges & Troubleshooting
 
 | Area | Issue | Resolution |
 |---|---|---|
@@ -334,7 +334,7 @@ Replication tests were run even in a single-DC environment to validate the AD re
 
 ---
 
-## 📚 Lessons Learned
+##  Lessons Learned
 
 - **AD design:** a proper OU structure is essential for clean GPO targeting and scalability; separating standard, admin, and service accounts prevents privilege creep
 - **Group Policy:** domain-level policies override local settings, so understanding GPO precedence is critical; Advanced Audit Policy gives far more useful logging than legacy audit settings
@@ -344,7 +344,7 @@ Replication tests were run even in a single-DC environment to validate the AD re
 
 ---
 
-## 🚀 Future Enhancements
+##  Future Enhancements
 
 - **Windows LAPS:** unique, automatically rotated local admin passwords to reduce lateral movement risk
 - **Sysmon + Wazuh:** endpoint telemetry forwarded to a SIEM for process, network, and registry visibility
@@ -355,7 +355,7 @@ Replication tests were run even in a single-DC environment to validate the AD re
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 | Category | Technologies |
 |---|---|
@@ -366,4 +366,12 @@ Replication tests were run even in a single-DC environment to validate the AD re
 
 ---
 
-<p align="center"><i>Built in the Zeroday homelab 🧪</i></p>
+<p align="center"><i>Built in the Zeroday homelab </i></p>
+<p align="center">
+  <a href="https://www.linkedin.com/in/mohammad-h-masir">
+    <img src="https://img.shields.io/badge/LinkedIn-Mohammad%20Masir-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+  </a>
+  <a href="https://github.com/zdhomelab">
+    <img src="https://img.shields.io/badge/GitHub-zdhomelab-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  </a>
+</p>
