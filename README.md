@@ -1,3 +1,4 @@
+![zdb](ad-windows-security-lab/screenshots/zdb.png)
 # Active Directory & Windows Security Lab
 
 A hands-on homelab that deploys a **Windows Server 2025 Active Directory domain** (`zeroday.local`) and hardens it with Group Policy, Advanced Audit Policy and DNS-level filtering. It runs on Cisco networking gear and a Proxmox VE hypervisor, and mirrors the core pieces of a small enterprise network.
