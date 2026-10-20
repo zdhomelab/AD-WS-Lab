@@ -311,3 +311,4 @@ WC01 joined to `zeroday.local` (Windows 11 Pro, Settings → System → About).
 - **Group Policy and security:** GPMC, Advanced Audit Policy, Windows Defender, Windows Firewall, SmartScreen
 - **Networking and infrastructure:** Pi-hole, Cisco networking equipment, Proxmox VE
 - **Tools:** DNS Manager, `dcdiag`, `repadmin`, `nslookup`, Active Directory Administrative Center, ADUC, Server Manager, Event Viewer, `gpresult`, `gpupdate`, PowerShell
+- <p align="center"><i>Built in the Zeroday homelab</i></p>
