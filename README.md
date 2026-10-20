@@ -1,4 +1,12 @@
 ![zdb](ad-windows-security-lab/screenshots/zdb.png)
+
+![Windows Server](https://img.shields.io/badge/Windows%20Server-2025-0078D4?logo=windows&logoColor=white)
+![Windows 11](https://img.shields.io/badge/Windows-11%20Pro-0078D4?logo=windows11&logoColor=white)
+![Proxmox](https://img.shields.io/badge/Proxmox-VE-E57000?logo=proxmox&logoColor=white)
+![Pi-hole](https://img.shields.io/badge/Pi--hole-DNS%20Filtering-96060C?logo=pihole&logoColor=white)
+![Cisco](https://img.shields.io/badge/Cisco-IOS-1BA0D7?logo=cisco&logoColor=white)
+---
+
 # Active Directory & Windows Security Lab
 
 A hands-on homelab that deploys a **Windows Server 2025 Active Directory domain** (`zeroday.local`) and hardens it with Group Policy, Advanced Audit Policy and DNS-level filtering. It runs on Cisco networking gear and a Proxmox VE hypervisor, and mirrors the core pieces of a small enterprise network.
