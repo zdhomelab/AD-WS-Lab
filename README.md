@@ -135,13 +135,13 @@ A domain-level GPO named **GPO-Security Baseline** is linked at `zeroday.local` 
 
 Event 4624 on SRV-DC01 for a successful network logon (type 3, NTLM) of `bob.jeen` from WC01.
 
-![Event ID 4624: successful logon](screenshots/01-event-4624-successful-logon.png)
+![Event ID 4624: successful logon](ad-windows-security-lab/screenshots/01-event-4624-successful-logon.png)
 
 ### 2. Event ID 4625: failed logon
 
 Event 4625 on SRV-DC01: failed network logon, status `0xC000006D` / sub-status `0xC000006A` (valid account, wrong password).
 
-![Event ID 4625: failed logon](screenshots/02-event-4625-failed-logon.png)
+![Event ID 4625: failed logon](ad-windows-security-lab/screenshots/02-event-4625-failed-logon.png)
 
 ### 3. Event ID 4720: user account created
 
@@ -153,115 +153,115 @@ Event 4720 confirming User Account Management auditing recorded the creation of 
 
 Server Manager local server properties for SRV-DC01 in the `zeroday.local` domain.
 
-![Server initial configuration](screenshots/04-server-manager-local-server.png)
+![Server initial configuration](ad-windows-security-lab/screenshots/04-server-manager-local-server.png)
 
 ### 5. IP configuration
 
 Network configuration of the domain controller (`ipconfig`).
 
-![IP configuration](screenshots/05-ip-configuration.png)
+![IP configuration](ad-windows-security-lab/screenshots/05-ip-configuration.png)
 
 ### 6. AD DS installation
 
 Add Roles and Features wizard: AD DS and DNS role installation completed.
 
-![AD DS installation](screenshots/06-ad-ds-installation.png)
+![AD DS installation](ad-windows-security-lab/screenshots/06-ad-ds-installation.png)
 
 ### 7. AD prerequisites passed
 
 AD DS Configuration Wizard: prerequisites check passed.
 
-![AD prerequisites passed](screenshots/07-ad-prerequisites-passed.png)
+![AD prerequisites passed](ad-windows-security-lab/screenshots/07-ad-prerequisites-passed.png)
 
 ### 8. Domain controller verification
 
 Domain properties confirming `zeroday.local` and SRV-DC01 as infrastructure master.
 
-![Domain controller verification](screenshots/08-domain-controller-verification.png)
+![Domain controller verification](ad-windows-security-lab/screenshots/08-domain-controller-verification.png)
 
 ### 9. DNS resolution
 
 `nslookup` resolves `srv-dc01.zeroday.local` to `192.168.10.10`.
 
-![DNS resolution](screenshots/09-dns-resolution-nslookup.png)
+![DNS resolution](ad-windows-security-lab/screenshots/09-dns-resolution-nslookup.png)
 
 ### 10. Active Directory structure
 
 Organizational units: Lab-Users, Lab-Computers and Lab-Groups.
 
-![Active Directory structure](screenshots/10-ad-structure-lab-groups.png)
+![Active Directory structure](ad-windows-security-lab/screenshots/10-ad-structure-lab-groups.png)
 
 ### 11. Test users
 
 Lab-Users OU containing the five lab user accounts.
 
-![Test users](screenshots/11-test-users.png)
+![Test users](ad-windows-security-lab/screenshots/11-test-users.png)
 
 ### 12. Security groups
 
 Lab-Groups OU containing the six security groups.
 
-![Security groups](screenshots/12-security-groups.png)
+![Security groups](ad-windows-security-lab/screenshots/12-security-groups.png)
 
 ### 13. GPO link
 
 GPO-Security Baseline linked at the `zeroday.local` domain level.
 
-![GPO link](screenshots/13-gpo-security-baseline-link.png)
+![GPO link](ad-windows-security-lab/screenshots/13-gpo-security-baseline-link.png)
 
 ### 14. Password policy
 
 Password policy settings in GPO-Security Baseline.
 
-![Password policy](screenshots/14-password-policy.png)
+![Password policy](ad-windows-security-lab/screenshots/14-password-policy.png)
 
 ### 15. Account lockout policy
 
 Account lockout policy settings in GPO-Security Baseline.
 
-![Account lockout policy](screenshots/15-account-lockout-policy.png)
+![Account lockout policy](ad-windows-security-lab/screenshots/15-account-lockout-policy.png)
 
 ### 16. GPO verification on SRV-DC01
 
 Default Domain Controllers Policy, Default Domain Policy and GPO-Security Baseline applied on the DC.
 
-![GPO verification on SRV-DC01](screenshots/16-gpresult-domain-controller.png)
+![GPO verification on SRV-DC01](ad-windows-security-lab/screenshots/16-gpresult-domain-controller.png)
 
 ### 17. GPO verification on WC01
 
 Default Domain Policy and GPO-Security Baseline applied on the workstation.
 
-![GPO verification on WC01](screenshots/17-gpresult-workstation-wc01.png)
+![GPO verification on WC01](ad-windows-security-lab/screenshots/17-gpresult-workstation-wc01.png)
 
 ### 18. Pi-hole conditional forwarding
 
 `zeroday.local` forwarded to SRV-DC01 (`192.168.10.10`); Pi-hole keeps filtering external DNS.
 
-![Pi-hole conditional forwarding](screenshots/18-pihole-conditional-forwarding.png)
+![Pi-hole conditional forwarding](ad-windows-security-lab/screenshots/18-pihole-conditional-forwarding.png)
 
 ### 19. DNS Manager verification
 
 Required AD SRV records present (LDAP, Kerberos, Global Catalog, DC locator); no stale entries.
 
-![DNS Manager verification](screenshots/19-dns-manager-verification.png)
+![DNS Manager verification](ad-windows-security-lab/screenshots/19-dns-manager-verification.png)
 
 ### 20. dcdiag DNS health check
 
 `dcdiag /test:dns` passed for all partitions and the enterprise DNS test.
 
-![dcdiag DNS health check](screenshots/20-dcdiag-dns-health.png)
+![dcdiag DNS health check](ad-windows-security-lab/screenshots/20-dcdiag-dns-health.png)
 
 ### 21. Replication health
 
 `repadmin /replsummary` reporting no replication errors.
 
-![Replication health](screenshots/21-replication-health-repadmin.png)
+![Replication health](ad-windows-security-lab/screenshots/21-replication-health-repadmin.png)
 
 ### 22. Domain-joined client
 
 WC01 joined to `zeroday.local` (Windows 11 Pro, Settings → System → About).
 
-![Domain-joined client](screenshots/22-client-system-about-wc01.png)
+![Domain-joined client](ad-windows-security-lab/screenshots/22-client-system-about-wc01.png)
 
 ## Challenges and troubleshooting
 
