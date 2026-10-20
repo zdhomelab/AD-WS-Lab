@@ -220,7 +220,7 @@ This confirms failed authentication attempts are audited and traceable to a sour
 
 **Event 4624: Successful logon**
 
-<img src="github-lab-readme/screenshots/01-event-4624.png" alt="Event 4624"> 
+<img src="lab-screenshots/screenshots/01-event-4624.png" alt="Event 4624"> 
 
 **Event 4625: Failed logon**
 
