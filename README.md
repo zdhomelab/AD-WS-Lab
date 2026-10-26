@@ -314,3 +314,9 @@ WC01 joined to `zeroday.local` (Windows 11 Pro, Settings → System → About).
 - **Networking and infrastructure:** Pi-hole, Cisco networking equipment, Proxmox VE
 - **Tools:** DNS Manager, `dcdiag`, `repadmin`, `nslookup`, Active Directory Administrative Center, ADUC, Server Manager, Event Viewer, `gpresult`, `gpupdate`, PowerShell
  <p align="center"><i>Built in the Zeroday homelab</i></p>
+ 
+ ## My Linkedin
+ 
+ <a href="https://www.linkedin.com/in/mohammad-h-masir">
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat" alt="LinkedIn">
+</a>
